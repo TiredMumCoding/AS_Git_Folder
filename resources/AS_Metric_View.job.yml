@@ -1,0 +1,23 @@
+resources:
+  jobs:
+    AS_metric_view:
+      name: AS_metric_view
+      description: Testing deploying a DAB to dev and prod
+
+      #trigger:
+        # Re-apply the view definition daily. Dev deployment mode pauses this trigger;
+        # in prod the job runs once per day. See https://docs.databricks.com/api/workspace/jobs/create#trigger
+        #periodic:
+        #  interval: 1
+        #  unit: DAYS
+
+      parameters:
+        - name: catalog
+          default: ${var.catalog}
+        - name: schema
+          default: ${var.schema}
+
+      tasks:
+        - task_key: create_AS_metric_view
+          notebook_task: # changed from the example because the sql I have created runs inside a notebook, not an sql file
+            notebook_path: ../src/AS_Metric_View.ipynb

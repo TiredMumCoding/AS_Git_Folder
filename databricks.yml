@@ -1,0 +1,28 @@
+bundle:
+  name: AS_metric_view
+
+include:
+  - resources/*.yml #from chat gpt - means include every .yml file that is in the resources directory
+
+variables:
+  catalog:
+    description: The Unity Catalog where the metric view will be created.
+  schema:
+    description: The schema where the metric view will be created.
+  warehouse_id:
+    description: SQL warehouse ID used to run the CREATE VIEW statement. To list available warehouses, use `databricks warehouses list`.
+
+targets:
+  dev:
+    mode: development
+    default: true
+    variables:
+      catalog: as_dev
+      schema: default
+      warehouse_id: "83354d82c66ebb5d"
+  prod:
+    mode: production
+    variables:
+      catalog: as_prod
+      schema: default
+      warehouse_id: "83354d82c66ebb5d"
